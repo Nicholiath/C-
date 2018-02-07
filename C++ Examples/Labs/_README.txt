@@ -1,0 +1,1 @@
+Here are a number of C++ labs and assignments from courses. Not all include descriptions, but contain enough code to display my skill and fluency in the language.

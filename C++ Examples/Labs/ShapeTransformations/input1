@@ -1,0 +1,12 @@
+x 1
+ y 2
+t 3 (2,-1)
+  u    # undo translation
+ x 4  # invalid command - no shape 4
+ u # undo y-reflection
+a # invalid command
+u # undo x-reflection
+r # redo x-reflection
+y 1
+r # nothing to redo
+ u # undo y-reflection of shape 1

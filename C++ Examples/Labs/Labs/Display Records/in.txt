@@ -1,0 +1,5 @@
+2009/01/05 homer simpson 25.50
+2009/02/10 bart simpson 100.00
+2009/02/15 ned flanders 45.10
+2009/04/10 homer simpson 15.75
+2009/05/11 ned flanders 25.45

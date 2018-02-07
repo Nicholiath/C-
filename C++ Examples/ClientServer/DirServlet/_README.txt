@@ -1,0 +1,1 @@
+Similar to the other Server/Client directory search, this program allows you to communicate with a server through a web browser, such as Google Chrome.

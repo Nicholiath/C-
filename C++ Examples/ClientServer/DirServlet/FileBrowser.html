@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<label for="path"><input type="text" value="E:\"
+		id="path">
+		<button type="button" id="get">Get</button>
+
+		<div id="dr"></div> <script type="text/javascript">
+
+var directory; 
+var array = [];
+var cp;
+$(document).ready(function(){
+	$("#dr").on("click",".ch",function(){
+		var val = $(this).val();
+		getListing(val, undefined, true);
+		array.push(cp);cp=val;
+	});		
+	$("#dr").on("click",".ro",function(){
+		var val = $(this).val();var pr = $(this);
+		directory = directory + val + "\\";
+		pr.attr("class","pr");pr.html("Opened folder");
+		getListing(directory , pr, false);
+	});	
+	$("#dr").on("click",".pr",function(){
+		var pr = $(this);
+		pr.html("Folder");pr.attr("class","ro");
+		pr.siblings("ul").remove();
+	});	
+	$('#get').click(function(){
+		var dirPath = $('#path').val();	
+		directory = dirPath;
+		array.push(cp);
+		cp=dirPath;
+		getListing(dirPath,undefined, true);
+	});		
+});
+
+
+function getListing(path, pr, bool){
+	$.ajax({
+		method:"GET",
+		url: "http://localhost:8888?" + path,
+		success: function(responseTxt){
+			var listing = responseTxt.split(",");
+			renderListing(listing,pr,bool);			
+		}
+	});
+}	 
+function renderListing(listing,pr,bool){
+	var ul;
+	
+	if(bool){
+		ul = document.getElementById("dr");
+		ul.innerHTML = "EMPTY";
+	}
+	else{
+		ul = document.createElement("ul");
+	}
+	for(var index=0; index < listing.length-1; index++){
+		var li = document.createElement("li");	
+		if( listing[index].startsWith("X") ){
+			li.innerHTML = listing[index].slice(1);
+		}
+		else{
+			var b = document.createElement("button");		
+			b.innerHTML = "Folder";
+			b.setAttribute("class","ro" );b.setAttribute("value",listing[index]);
+			li.appendChild(b);						
+			var i = document.createElement("I");
+			i.innerHTML = "\\" + listing[index];
+			i.setAttribute("class","ch" );i.setAttribute("value",listing[index]);
+			li.appendChild(i);			
+		}
+		ul.appendChild(li);
+	}
+	if(!bool){
+		pr.parent().append(ul);
+	}
+}	 
+	 </script>
+</body>
+</html>
